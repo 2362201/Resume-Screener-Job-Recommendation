@@ -1,0 +1,18 @@
+# ==========================================
+# Project 6: Resume Screener & Job Recommendation
+# ==========================================
+import pandas as pd
+from sentence_transformers import SentenceTransformer, util
+
+# Sample resumes and jobs
+resumes = ["Python developer with ML experience", "Data analyst with SQL knowledge"]
+jobs = ["Looking for ML engineer", "Data analyst role with SQL and Excel"]
+
+# Embeddings
+model = SentenceTransformer('all-MiniLM-L6-v2')
+resume_emb = model.encode(resumes, convert_to_tensor=True)
+job_emb = model.encode(jobs, convert_to_tensor=True)
+
+# Semantic similarity
+cos_sim = util.cos_sim(resume_emb, job_emb)
+print("Similarity matrix:", cos_sim)
